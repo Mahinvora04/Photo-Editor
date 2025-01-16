@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Snap Master</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lobster&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="app-container">
+      <div class="sidebar">
+        <h1>Snap Master</h1>
+        <input type="file" id="upload" accept="image/*" class="upload-btn" />
+        <div class="controls">
+          <div class="control-group">
+            <label>Brightness</label>
+            <input type="range" id="brightness" min="0" max="200" value="100" />
+          </div>
+          <div class="control-group">
+            <label>Contrast</label>
+            <input type="range" id="contrast" min="0" max="200" value="100" />
+          </div>
+          <div class="control-group">
+            <label>Grayscale</label>
+            <input type="range" id="grayscale" min="0" max="100" value="0" />
+          </div>
+          <div class="control-group">
+            <label>Blur</label>
+            <input type="range" id="blur" min="0" max="10" value="0" />
+          </div>
+          <div class="control-group">
+            <label>Rotate</label>
+            <input type="range" id="rotate" min="0" max="360" value="0" />
+          </div>
+          <div class="control-group">
+            <label>Flip</label>
+            <button id="flipHorizontal" class="flip-btn">
+              Flip Horizontal
+            </button>
+            <button id="flipVertical" class="flip-btn">Flip Vertical</button>
+          </div>
+          <button id="reset" class="reset-btn">Reset</button>
+          <button  id="download" class="download-btn button" style="vertical-align: middle">
+            <span>Download</span>
+          </button>
+        </div>
+      </div>
+      <div class="image-container">
+        <img id="image" alt="Your Image" hidden />
+      </div>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>

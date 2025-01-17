@@ -39,14 +39,51 @@
             <input type="range" id="rotate" min="0" max="360" value="0" />
           </div>
           <div class="control-group">
-            <label>Flip</label>
-            <button id="flipHorizontal" class="flip-btn">
-              Flip Horizontal
-            </button>
-            <button id="flipVertical" class="flip-btn">Flip Vertical</button>
+            <div>
+              <label>Flip</label>
+            </div>
+            <div class="flip-btns-container">
+              <button id="flipHorizontal" class="flip-btn"> 
+                Flip Horizontal
+              </button>
+              <button id="flipVertical" class="flip-btn">Flip Vertical</button>
+            </div>
           </div>
-          <button id="reset" class="reset-btn">Reset</button>
-          <button  id="download" class="download-btn button" style="vertical-align: middle">
+          <div class="control-group">
+            <label for="watermark-text">Watermark Text:</label>
+            <input
+              type="text"
+              id="watermark-text"
+              class="watermark-input"
+              placeholder="Enter text"
+            />
+            <button id="add-watermark" class="button ">Add Watermark</button>
+          </div>
+
+          <div class="control-group">
+            <label for="resize-width">Width:</label>
+            <input
+              class="watermark-input"
+              type="number"
+              id="resize-width"
+              placeholder="Enter width"
+            />
+            <label for="resize-height">Height:</label>
+            <input
+              type="number"
+              class="watermark-input"
+              id="resize-height"
+              placeholder="Enter height"
+            />
+            <button id="resize" class="button ">Resize</button>
+          </div>
+
+          <button id="reset" class="reset-btn ">Reset</button>
+          <button
+            id="download"
+            class="download-btn button"
+            style="vertical-align: middle"
+          >
             <span>Download</span>
           </button>
         </div>

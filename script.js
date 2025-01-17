@@ -14,7 +14,7 @@ const flipVertical = document.getElementById("flipVertical");
 
 let rotationValue = 0;
 let scaleX = 1;
-let scaleY = 1;
+let scaleY = 1;   
 
 // Function to apply styles to the image
 function updateImage() {
@@ -156,4 +156,42 @@ downloadBtn.addEventListener("click", () => {
   a.href = dataURL;
   a.download = "edited-image.png";
   a.click();
+});
+
+document.getElementById("add-watermark").addEventListener("click", () => {
+  const text = document.getElementById("watermark-text").value;
+
+  if (text) {
+    const canvas = document.createElement("canvas");
+    const ctx = canvas.getContext("2d");
+
+    canvas.width = image.naturalWidth;
+    canvas.height = image.naturalHeight;
+
+    ctx.drawImage(image, 0, 0);
+
+    ctx.font = "30px Arial";
+    ctx.fillStyle = "rgba(255, 255, 255, 0.5)";
+    ctx.textAlign = "center";
+    ctx.fillText(text, canvas.width / 2, canvas.height - 50);
+
+    image.src = canvas.toDataURL("image/png");
+  }
+});
+
+document.getElementById("resize").addEventListener("click", () => {
+  const width = parseInt(document.getElementById("resize-width").value, 10);
+  const height = parseInt(document.getElementById("resize-height").value, 10);
+
+  if (width && height) {
+    const canvas = document.createElement("canvas");
+    const ctx = canvas.getContext("2d");
+
+    canvas.width = width;
+    canvas.height = height;
+
+    ctx.drawImage(image, 0, 0, width, height);
+
+    image.src = canvas.toDataURL("image/png");
+  }
 });

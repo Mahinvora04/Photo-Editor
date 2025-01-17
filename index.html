@@ -17,6 +17,14 @@
       <div class="sidebar">
         <h1>Snap Master</h1>
         <input type="file" id="upload" accept="image/*" class="upload-btn" />
+        <div>
+          <button class="control-button">Brightness</button>
+          <button class="control-button">Contrast</button>
+          <button class="control-button">Grayscale</button>
+          <button class="control-button">Blur</button>
+          <button class="control-button">Rotate</button>
+          <button id="reset" class="control-button">Reset</button>
+        </div>
         <div class="controls">
           <div class="control-group">
             <label>Brightness</label>
@@ -39,49 +47,52 @@
             <input type="range" id="rotate" min="0" max="360" value="0" />
           </div>
           <div class="control-group">
-            <div>
-              <label>Flip</label>
-            </div>
             <div class="flip-btns-container">
-              <button id="flipHorizontal" class="flip-btn"> 
-                Flip Horizontal
+              <button id="flipHorizontal" class="flip-btn">
+                <img src="flip.png" class="flip-btn-image" alt="" />
               </button>
-              <button id="flipVertical" class="flip-btn">Flip Vertical</button>
+              <button id="flipVertical" class="flip-btn">
+                <img
+                  src="flip.png"
+                  class="flip-btn-image flip-btn-image-vertical"
+                  alt=""
+                />
+              </button>
             </div>
           </div>
-          <div class="control-group">
-            <label for="watermark-text">Watermark Text:</label>
+          <div class="control-group watermark-container">
             <input
               type="text"
               id="watermark-text"
               class="watermark-input"
-              placeholder="Enter text"
+              placeholder="Enter Watermark"
             />
-            <button id="add-watermark" class="button ">Add Watermark</button>
+            <button id="add-watermark" class="control-button">
+              Add Watermark
+            </button>
           </div>
 
-          <div class="control-group">
-            <label for="resize-width">Width:</label>
-            <input
-              class="watermark-input"
-              type="number"
-              id="resize-width"
-              placeholder="Enter width"
-            />
-            <label for="resize-height">Height:</label>
-            <input
-              type="number"
-              class="watermark-input"
-              id="resize-height"
-              placeholder="Enter height"
-            />
-            <button id="resize" class="button ">Resize</button>
+          <div class="">
+            <div class="watermark-container">
+              <input
+                class="watermark-input"
+                type="number"
+                id="resize-width"
+                placeholder="Enter width"
+              />
+              <input
+                type="number"
+                class="watermark-input"
+                id="resize-height"
+                placeholder="Enter height"
+              />
+              <button id="resize" class="control-button">Resize</button>
+            </div>
           </div>
 
-          <button id="reset" class="reset-btn ">Reset</button>
           <button
             id="download"
-            class="download-btn button"
+            class="download-btn download-button"
             style="vertical-align: middle"
           >
             <span>Download</span>

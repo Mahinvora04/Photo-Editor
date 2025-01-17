@@ -7,63 +7,74 @@ const blur = document.getElementById("blur");
 const resetBtn = document.getElementById("reset");
 const downloadBtn = document.getElementById("download");
 const uploadInput = document.getElementById("upload");
-
 const rotate = document.getElementById("rotate");
 const flipHorizontal = document.getElementById("flipHorizontal");
 const flipVertical = document.getElementById("flipVertical");
 
 let rotationValue = 0;
 let scaleX = 1;
-let scaleY = 1;   
+let scaleY = 1;
 
-// Function to apply styles to the image
+document.addEventListener("DOMContentLoaded", () => {
+  const brightnessBtn = document.querySelector("button:nth-child(1)");
+  const contrastBtn = document.querySelector("button:nth-child(2)");
+  const grayscaleBtn = document.querySelector("button:nth-child(3)");
+  const blurBtn = document.querySelector("button:nth-child(4)");
+  const rotateBtn = document.querySelector("button:nth-child(5)");
+
+  const brightnessControl = document.querySelector(
+    ".control-group:nth-child(1)"
+  );
+  const contrastControl = document.querySelector(".control-group:nth-child(2)");
+  const grayscaleControl = document.querySelector(
+    ".control-group:nth-child(3)"
+  );
+  const blurControl = document.querySelector(".control-group:nth-child(4)");
+  const rotateControl = document.querySelector(".control-group:nth-child(5)");
+
+  const controlGroups = [
+    brightnessControl,
+    contrastControl,
+    grayscaleControl,
+    blurControl,
+    rotateControl,
+  ];
+
+  const hideAllControls = () => {
+    controlGroups.forEach((group) => {
+      group.style.display = "none";
+    });
+  };
+
+  const showControl = (control) => {
+    hideAllControls();
+    control.style.display = "block";
+  };
+
+  brightnessBtn.addEventListener("click", () => showControl(brightnessControl));
+  contrastBtn.addEventListener("click", () => showControl(contrastControl));
+  grayscaleBtn.addEventListener("click", () => showControl(grayscaleControl));
+  blurBtn.addEventListener("click", () => showControl(blurControl));
+  rotateBtn.addEventListener("click", () => showControl(rotateControl));
+
+  // Initially hide all controls
+  hideAllControls();
+});
+
 function updateImage() {
   const brightnessValue = brightness.value;
   const contrastValue = contrast.value;
   const grayscaleValue = grayscale.value;
-  const blurValue = blur.value;
+  const blurValue = blur.value; 
 
   image.style.filter = `brightness(${brightnessValue}%) contrast(${contrastValue}%) grayscale(${grayscaleValue}%) blur(${blurValue}px)`;
+  image.style.transform = `rotate(${rotationValue}deg) scale(${scaleX}, ${scaleY})`;
 }
 
-// Update the image whenever any of the sliders change
 brightness.addEventListener("input", updateImage);
 contrast.addEventListener("input", updateImage);
 grayscale.addEventListener("input", updateImage);
 blur.addEventListener("input", updateImage);
-
-// Reset button to reset the filters
-resetBtn.addEventListener("click", () => {
-  brightness.value = 100;
-  contrast.value = 100;
-  grayscale.value = 0;
-  blur.value = 0;
-  updateImage();
-});
-
-// Download the edited image
-downloadBtn.addEventListener("click", () => {
-  // Create a canvas to draw the image and apply styles
-  const canvas = document.createElement("canvas");
-  const ctx = canvas.getContext("2d");
-
-  // Set canvas dimensions
-  canvas.width = image.naturalWidth;
-  canvas.height = image.naturalHeight;
-
-  // Apply styles to the image on the canvas
-  ctx.filter = `brightness(${brightness.value}%) contrast(${contrast.value}%) grayscale(${grayscale.value}%) blur(${blur.value}px)`;
-  ctx.drawImage(image, 0, 0);
-
-  // Convert canvas to data URL (image format)
-  const dataURL = canvas.toDataURL("image/png");
-
-  // Create an anchor element to trigger the download
-  const a = document.createElement("a");
-  a.href = dataURL;
-  a.download = "edited-image.png"; // Specify the file name
-  a.click(); // Trigger the download
-});
 
 // Load image onto the editor
 upload.addEventListener("change", (event) => {
@@ -71,39 +82,11 @@ upload.addEventListener("change", (event) => {
   const reader = new FileReader();
   reader.onload = () => {
     image.src = reader.result;
-    image.hidden = false; // Make the image visible
-    updateImage(); // Apply initial filter values
+    image.hidden = false;
+    updateImage();
   };
   reader.readAsDataURL(file);
 });
-
-// Show image and download button when a file is selected
-uploadInput.addEventListener("change", function (event) {
-  const file = event.target.files[0];
-
-  if (file) {
-    const reader = new FileReader();
-
-    reader.onload = function (e) {
-      image.src = e.target.result;
-      image.hidden = false; // Show image
-      downloadBtn.style.display = "block"; // Show the download button
-    };
-
-    reader.readAsDataURL(file);
-  }
-});
-
-// Function to update styles (including rotate and flip)
-function updateImage() {
-  const brightnessValue = brightness.value;
-  const contrastValue = contrast.value;
-  const grayscaleValue = grayscale.value;
-  const blurValue = blur.value;
-
-  image.style.filter = `brightness(${brightnessValue}%) contrast(${contrastValue}%) grayscale(${grayscaleValue}%) blur(${blurValue}px)`;
-  image.style.transform = `rotate(${rotationValue}deg) scale(${scaleX}, ${scaleY})`;
-}
 
 // Rotate the image
 rotate.addEventListener("input", () => {
@@ -113,13 +96,13 @@ rotate.addEventListener("input", () => {
 
 // Flip the image horizontally
 flipHorizontal.addEventListener("click", () => {
-  scaleX *= -1; // Toggle the horizontal scale between 1 and -1
+  scaleX *= -1;
   updateImage();
 });
 
 // Flip the image vertically
 flipVertical.addEventListener("click", () => {
-  scaleY *= -1; // Toggle the vertical scale between 1 and -1
+  scaleY *= -1;
   updateImage();
 });
 
@@ -128,7 +111,7 @@ resetBtn.addEventListener("click", () => {
   brightness.value = 100;
   contrast.value = 100;
   grayscale.value = 0;
-  blur.value = 0;
+  blur.value = 0; 
   rotate.value = 0;
   rotationValue = 0;
   scaleX = 1;
@@ -146,9 +129,9 @@ downloadBtn.addEventListener("click", () => {
 
   // Apply transformations to the canvas
   ctx.filter = `brightness(${brightness.value}%) contrast(${contrast.value}%) grayscale(${grayscale.value}%) blur(${blur.value}px)`;
-  ctx.translate(canvas.width / 2, canvas.height / 2); // Move to center for rotation
-  ctx.rotate((rotationValue * Math.PI) / 180); // Rotate image
-  ctx.scale(scaleX, scaleY); // Apply flipping
+  ctx.translate(canvas.width / 2, canvas.height / 2);
+  ctx.rotate((rotationValue * Math.PI) / 180);
+  ctx.scale(scaleX, scaleY);
   ctx.drawImage(image, -image.naturalWidth / 2, -image.naturalHeight / 2);
 
   const dataURL = canvas.toDataURL("image/png");
